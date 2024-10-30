@@ -33,6 +33,19 @@ public class PersonServiceTest {
     }
 
     @Test
+    void createPerson_WhenPersonIsNull_ShouldThrowIllegalArgumentException(){
+
+        assertThrows(IllegalArgumentException.class, () -> service.createPerson(null));
+    }
+
+    @Test
+    void createPerson_WhenPersonIsNull_ShouldThrowIllegalArgumentExceptionWithCorrectMessage(){
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> service.createPerson(null));
+
+        assertEquals("Person cannot be null", exception.getMessage());
+    }
+
+    @Test
     void createPerson_ShouldReturnPersonWithMatchingAttributes() {
 
         Person actual = service.createPerson(person);
@@ -49,7 +62,7 @@ public class PersonServiceTest {
     @Test
     void createPerson_ShouldReturnNonNullID(){
         Person actual = service.createPerson(person);
-        System.out.println(person.getId());
+
         assertNotNull(actual.getId());
     }
 }
